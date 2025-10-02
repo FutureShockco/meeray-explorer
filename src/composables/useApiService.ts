@@ -116,8 +116,31 @@ export interface LatestBlock {
   block: Block;
 }
 
+export interface UserLiquidityPosition {
+  poolId: string;
+}
 
-
+export interface Pool {
+  id: string;
+  tokenA_symbol: string;
+  tokenB_symbol: string;
+  tokenA_reserve: string;
+  tokenB_reserve: string;
+  rawTokenA_reserve?: string;
+  rawTokenB_reserve?: string;
+  feeRateBasisPoints: number; // updated from feeTier
+  totalLpTokens?: string;
+  rawTotalLpTokens?: string;
+  feeGrowthGlobalA?: string; // NEW
+  feeGrowthGlobalB?: string; // NEW
+  aprA?: number; // Annualized fee APR for tokenA
+  aprB?: number; // Annualized fee APR for tokenB
+  fees24hA?: string; // 24h fees for tokenA (string, smallest units)
+  fees24hB?: string; // 24h fees for tokenB (string, smallest units)
+  status?: string;
+  lastUpdatedAt?: string;
+  created?: string;
+}
 
 // Use globalThis.$fetch if available (Nuxt 3), otherwise fallback to fetch
 const fetcher = typeof globalThis !== 'undefined' && typeof (globalThis as any).$fetch === 'function'
@@ -223,7 +246,11 @@ export function useApiService() {
   const getVotersForWitness = (witnessName: string, params: { limit?: number; offset?: number } = {}) =>
     fetcher(`${API_BASE}/witnesses/votersfor/${witnessName}?${new URLSearchParams(Object.entries(params).filter(([_, v]) => v !== undefined) as any).toString()}`) as Promise<{ data: string[]; total: number; limit: number; skip: number }>;
 
-
+ const getPoolsList = (params: { limit?: number; offset?: number } = {}) =>
+    fetcher(`${API_BASE}/pools?${new URLSearchParams(Object.entries(params).filter(([_, v]) => v !== undefined) as any).toString()}`) as Promise<{ data: Pool[]; total: number; limit: number; skip: number }>;
+  const getUserLiquidityPositions = (userId: string, params: { limit?: number; offset?: number } = {}) =>
+    fetcher(`${API_BASE}/pools/positions/user/${userId}?${new URLSearchParams(Object.entries(params).filter(([_, v]) => v !== undefined) as any).toString()}`) as Promise<{ data: UserLiquidityPosition[]; total: number; limit: number; skip: number }>;
+ 
   return {
     getConfig,
     // Account
@@ -267,6 +294,8 @@ export function useApiService() {
     getWitnessDetails,
     getWitnessVotesCastBy,
     getVotersForWitness,
-
+    // Pools
+    getPoolsList,
+    getUserLiquidityPositions,
   };
 }
