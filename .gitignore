@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 .env
 src/auto-imports.d.ts
+package-lock.json
