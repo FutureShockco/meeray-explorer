@@ -1,7 +1,9 @@
+require('dotenv').config();
+
 const path = require('path');
 const express = require('express');
 const app = express();
-const port = process.env.VITE_PORT || 5555;
+const port = process.env.VITE_PORT || 3000;
 
 const distPath = path.join(__dirname, 'dist');
 
