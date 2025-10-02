@@ -165,44 +165,6 @@ onUnmounted(() => {
     clearTimeout(searchTimeout.value);
   }
 });
-// Example SVG icon as a functional component
-const FarmIcon = {
-  render() {
-    return h('svg', { class: 'w-6 h-6', fill: 'none', stroke: 'currentColor', strokeWidth: 2, viewBox: '0 0 24 24' }, [
-      h('circle', { cx: 12, cy: 12, r: 10 }),
-      h('path', { d: 'M8 12h8m-4-4v8' })
-    ])
-  }
-};
-
-const UserFarmIcon = {
-  render() {
-    return h('svg', {
-      class: 'w-6 h-6',
-      fill: 'none',
-      stroke: 'currentColor',
-      strokeWidth: 2,
-      viewBox: '0 0 24 24'
-    }, [
-      h('path', {
-        d: 'M12 17c-2 0-4-1-4-3 0-2 2-3 4-3s4 1 4 3c0 2-2 3-4 3z',
-        stroke: 'currentColor',
-        fill: 'currentColor',
-        opacity: '0.2'
-      }),
-      h('path', {
-        d: 'M12 17c-2 0-4-1-4-3 0-2 2-3 4-3s4 1 4 3c0 2-2 3-4 3z',
-        stroke: 'currentColor',
-        fill: 'none'
-      }),
-      h('path', {
-        d: 'M12 14v-4m0 0l-2-2m2 2l2-2',
-        stroke: 'currentColor',
-        fill: 'none'
-      })
-    ]);
-  }
-};
 
 const menuItems = [
   { label: 'Explore', href: '/explore' },
